@@ -1,13 +1,13 @@
 import React, {Component, useEffect} from "react";
 import {connect} from "react-redux";
-import {getToken} from "./utils/api";
+import getAppToken from "./action/app";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./container/Home";
 
 const App = props => {
-  const {startApp} = props
+  const {getAppToken} = props
   useEffect(() => {
-    getToken()
+    getAppToken()
   }, [])
 
   return (
@@ -22,8 +22,4 @@ const App = props => {
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    startApp: () => dispatch(startApp())
-}
-
-export default connect(null, mapDispatchToProps)(App)
+export default connect(null, {getAppToken})(App)

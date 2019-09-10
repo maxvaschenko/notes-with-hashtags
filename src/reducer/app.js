@@ -12,6 +12,7 @@ const START = (state, payload) => {
     return {
         ...state,
         loading: false,
+        token: payload.token
     };
 };
 
