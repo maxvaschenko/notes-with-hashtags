@@ -16,8 +16,6 @@ const App = props => {
     }
   }, [token])
 
-  console.log(token);
-
   return (
      <Router>
             <Switch>

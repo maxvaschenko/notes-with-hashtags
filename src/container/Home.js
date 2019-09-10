@@ -2,18 +2,30 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {__Home__} from "./styled";
 
-@connect(state => state,{
-
-})
-
-class Home extends Component {
-    render() {
-        return (
-            <__Home__>
-               <p>Home</p>
-            </__Home__>
-        )
-    }
+const Home = props => {
+  const {articles} = props
+    return (
+        <__Home__>
+           {articles && articles.length && articles.map(item => {
+             const {created_at, description, id, name, price, status, updated_at} = item
+             return(
+               <div>
+                <p>{created_at}</p>
+                <p>{description}</p>
+                <p>{id}</p>
+                <p>{name}</p>
+                <p>{price}</p>
+                <p>{status}</p>
+                <p>{updated_at}</p>
+               </div>
+             )
+           })}
+        </__Home__>
+    )
 }
 
-export default Home
+const mapStateToProps = state => ({
+  articles: state.articles
+})
+
+export default connect(mapStateToProps, null)(Home)
