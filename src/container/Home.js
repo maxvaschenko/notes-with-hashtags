@@ -9,14 +9,10 @@ const Home = props => {
            {articles && articles.length && articles.map(item => {
              const {created_at, description, id, name, price, status, updated_at} = item
              return(
-               <div>
-                <p>{created_at}</p>
+               <div className={'articles-item'}>
                 <p>{description}</p>
-                <p>{id}</p>
                 <p>{name}</p>
                 <p>{price}</p>
-                <p>{status}</p>
-                <p>{updated_at}</p>
                </div>
              )
            })}
