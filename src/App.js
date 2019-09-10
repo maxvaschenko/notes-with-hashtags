@@ -1,14 +1,22 @@
 import React, {Component, useEffect} from "react";
 import {connect} from "react-redux";
-import getAppToken from "./action/app";
+import getAppToken from "./action/app.js";
+import getAllArticles from "./action/articles.js";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./container/Home";
 
 const App = props => {
-  const {getAppToken} = props
+  const {getAppToken, getAllArticles, token} = props
   useEffect(() => {
-    getAppToken()
-  }, [])
+    if (token == null) {
+      getAppToken()
+    }
+    if (token) {
+      getAllArticles(token)
+    }
+  }, [token])
+
+  console.log(token);
 
   return (
      <Router>
@@ -22,4 +30,8 @@ const App = props => {
   )
 }
 
-export default connect(null, {getAppToken})(App)
+const mapStateToProps = state => ({
+  token: state.app.token
+})
+
+export default connect(mapStateToProps, {getAppToken, getAllArticles})(App)
