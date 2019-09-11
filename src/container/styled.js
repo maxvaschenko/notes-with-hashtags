@@ -18,6 +18,9 @@ export const __Home__ = styled.div`
     p {
       margin: 0;
     }
+    button {
+      width: 110px;
+    }
   }
   .articles-item {
     display: flex;

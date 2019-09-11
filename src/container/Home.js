@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { __Home__ } from "./styled";
 import { Spinner } from "../components/common/Spinner";
 import { ArticleItem } from "../components/TableComponents/ArticleItem";
-import { changeSingleArticle } from "../action/articles";
+import { changeSingleArticle, deleteArticle } from "../action/articles";
 
 const Home = props => {
-  const { articles, changeSingleArticle } = props;
+  const { articles, changeSingleArticle, deleteArticle } = props;
   return (
     <__Home__>
       <header>
@@ -20,6 +20,8 @@ const Home = props => {
           <ArticleItem
             article={item}
             changeSingleArticle={changeSingleArticle}
+            deleteArticle={deleteArticle}
+            key={item.id}
           />
         ))
       ) : (
@@ -35,5 +37,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeSingleArticle }
+  { changeSingleArticle, deleteArticle }
 )(Home);

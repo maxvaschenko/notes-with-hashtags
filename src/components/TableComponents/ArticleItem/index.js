@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export const ArticleItem = props => {
-  const { changeSingleArticle } = props;
+  const { changeSingleArticle, deleteArticle } = props;
   const [article, changeArticle] = useState(props.article);
   const [isEditModeOn, switchEditMode] = useState(false);
   const { description, name, price, id } = article;
@@ -19,6 +19,10 @@ export const ArticleItem = props => {
 
   const saveArticle = () => {
     changeSingleArticle(article, changeEditMode);
+  };
+
+  const deleteItem = () => {
+    deleteArticle(article);
   };
   return (
     <div className={"articles-item"} key={id}>
@@ -57,7 +61,7 @@ export const ArticleItem = props => {
       <button onClick={changeEditMode}>
         {isEditModeOn ? "Cancel" : "Edit"}
       </button>
-      <button>Remove</button>
+      <button onClick={deleteItem}>Remove</button>
     </div>
   );
 };

@@ -23,3 +23,12 @@ export const putArticle = (article, token) => {
     getAuthHeader(token)
   );
 };
+
+export const deleteArticleRequest = (article, token) => {
+  const { id, status, ...other } = article;
+  return axios.put(
+    `${endpoint}/articles/${id}`,
+    { id, ...{ status: 0 }, ...other },
+    getAuthHeader(token)
+  );
+};
