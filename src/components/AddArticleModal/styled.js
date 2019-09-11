@@ -22,5 +22,10 @@ export const __Modal__ = styled.div`
     input {
       margin-bottom: 1em;
     }
+    .error {
+      font-size: 0.8em;
+      margin-bottom: 1em;
+      color: red;
+    }
   }
 `;

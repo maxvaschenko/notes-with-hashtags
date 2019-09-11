@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { __Modal__ } from "./styled";
+import { isNumber } from "../../utils";
 
 export const AddArticleModal = props => {
   const { closeModal, addNewArticle } = props;
   const [article, changeArticle] = useState({});
+  const [error, setError] = useState(null);
   const changeValue = fieldName => e => {
     const newObj = article;
     newObj[fieldName] = e.target.value;
@@ -11,7 +13,11 @@ export const AddArticleModal = props => {
   };
 
   const postArticle = () => {
-    addNewArticle(article, closeModal);
+    if (!isNumber(+article.price)) {
+      setError("price must be a number");
+    } else {
+      addNewArticle(article, closeModal);
+    }
   };
   return (
     <__Modal__>
@@ -31,6 +37,7 @@ export const AddArticleModal = props => {
           placeholder={"price"}
           onChange={changeValue("price")}
         />
+        {error && <span className={"error"}>{error}</span>}
         <button onClick={postArticle}>Send</button>
         <button onClick={closeModal}>Cancel</button>
       </div>
