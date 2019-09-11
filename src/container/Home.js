@@ -17,9 +17,9 @@ const Home = props => {
           const { description, name, price, id } = item;
           return (
             <div className={"articles-item"} key={id}>
-              <p>{description}</p>
-              <p>{name}</p>
-              <p>{price}</p>
+              <p className="name">{name}</p>
+              <p className="descr">{description}</p>
+              <p className="price">{price}</p>
             </div>
           );
         })
