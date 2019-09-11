@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { __Home__ } from "./styled";
+import { Spinner } from "../components/common/Spinner";
 
 const Home = props => {
   const { articles } = props;
   return (
     <__Home__>
+      <header>
+        <p className="name">Name</p>
+        <p className="descr">Description</p>
+        <p className="price">Price</p>
+      </header>
       {articles && articles.length > 0 ? (
         articles.map(item => {
           const { description, name, price, id } = item;
@@ -18,7 +24,7 @@ const Home = props => {
           );
         })
       ) : (
-        <div className="loader">Loading...</div>
+        <Spinner />
       )}
     </__Home__>
   );
