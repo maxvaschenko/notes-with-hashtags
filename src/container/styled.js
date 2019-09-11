@@ -21,6 +21,7 @@ export const __Home__ = styled.div`
   }
   .articles-item {
     display: flex;
+    height: 44px;
     .name {
       width: 20%;
     }
