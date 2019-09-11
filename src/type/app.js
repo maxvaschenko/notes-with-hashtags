@@ -1,1 +1,0 @@
-export const START_APP = '@app/START_APP';
