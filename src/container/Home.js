@@ -3,11 +3,15 @@ import { connect } from "react-redux";
 import { __Home__ } from "./styled";
 import { Spinner } from "../components/common/Spinner";
 import { ArticleItem } from "../components/TableComponents/ArticleItem";
-import { changeSingleArticle, deleteArticle } from "../action/articles";
+import {
+  addNewArticle,
+  changeSingleArticle,
+  deleteArticle
+} from "../action/articles";
 import { AddArticleModal } from "../components/AddArticleModal";
 
 const Home = props => {
-  const { articles, changeSingleArticle, deleteArticle } = props;
+  const { articles, changeSingleArticle, deleteArticle, addNewArticle } = props;
   const [showModal, changeShowModal] = useState(false);
   const showAddModal = () => {
     changeShowModal(true);
@@ -35,7 +39,12 @@ const Home = props => {
       ) : (
         <Spinner />
       )}
-      {showModal && <AddArticleModal closeModal={hideAddModal} />}
+      {showModal && (
+        <AddArticleModal
+          closeModal={hideAddModal}
+          addNewArticle={addNewArticle}
+        />
+      )}
     </__Home__>
   );
 };
@@ -46,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeSingleArticle, deleteArticle }
+  { changeSingleArticle, deleteArticle, addNewArticle }
 )(Home);

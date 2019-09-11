@@ -32,3 +32,12 @@ export const deleteArticleRequest = (article, token) => {
     getAuthHeader(token)
   );
 };
+
+export const postArticle = (article, token) => {
+  const { price, status, ...other } = article;
+  return axios.post(
+    `${endpoint}/articles`,
+    { price: +price, status: 10, ...other },
+    { ...getAuthHeader(token), "Content-Type": "application/json" }
+  );
+};

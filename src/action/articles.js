@@ -1,5 +1,15 @@
-import { GET_ARTICLES, PUT_ARTICLE, DELETE_ARTICLE } from "../type/articles";
-import { getArticles, putArticle, deleteArticleRequest } from "../utils/api";
+import {
+  GET_ARTICLES,
+  PUT_ARTICLE,
+  DELETE_ARTICLE,
+  POST_ARTICLE
+} from "../type/articles";
+import {
+  getArticles,
+  putArticle,
+  deleteArticleRequest,
+  postArticle
+} from "../utils/api";
 
 export const getAllArticles = token => {
   return async dispatch => {
@@ -46,6 +56,25 @@ export const deleteArticle = article => {
         type: DELETE_ARTICLE,
         payload: { ...res.data }
       });
+    } catch (e) {
+      console.log(e);
+      //ignore
+    }
+  };
+};
+
+export const addNewArticle = (article, closeModalAction) => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        general: { token }
+      } = getState();
+      const res = await postArticle(article, token);
+      await dispatch({
+        type: POST_ARTICLE,
+        payload: { ...res.data }
+      });
+      await closeModalAction();
     } catch (e) {
       console.log(e);
       //ignore

@@ -1,5 +1,10 @@
 import { createReducer } from "../utils/index";
-import { DELETE_ARTICLE, GET_ARTICLES, PUT_ARTICLE } from "../type/articles";
+import {
+  DELETE_ARTICLE,
+  GET_ARTICLES,
+  POST_ARTICLE,
+  PUT_ARTICLE
+} from "../type/articles";
 
 const initialState = [];
 
@@ -17,8 +22,13 @@ const deleteArticleReducer = (state, payload) => {
   return [...state.slice(0, oldIndex), ...state.slice(oldIndex + 1)];
 };
 
+const postArticleReducer = (state, payload) => {
+  return [payload, ...state];
+};
+
 export default createReducer(initialState, {
   [GET_ARTICLES]: getArticlesReducer,
   [PUT_ARTICLE]: putArticleReducer,
-  [DELETE_ARTICLE]: deleteArticleReducer
+  [DELETE_ARTICLE]: deleteArticleReducer,
+  [POST_ARTICLE]: postArticleReducer
 });
