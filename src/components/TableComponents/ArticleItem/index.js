@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export const ArticleItem = props => {
+  const { changeSingleArticle } = props;
   const [article, changeArticle] = useState(props.article);
   const [isEditModeOn, switchEditMode] = useState(false);
   const { description, name, price, id } = article;
@@ -14,6 +15,10 @@ export const ArticleItem = props => {
     const newObj = article;
     newObj[fieldName] = e.target.value;
     changeArticle({ ...newObj });
+  };
+
+  const saveArticle = () => {
+    changeSingleArticle(article, changeEditMode);
   };
   return (
     <div className={"articles-item"} key={id}>
@@ -48,7 +53,7 @@ export const ArticleItem = props => {
         </React.Fragment>
       )}
 
-      {isEditModeOn && <button>Save</button>}
+      {isEditModeOn && <button onClick={saveArticle}>Save</button>}
       <button onClick={changeEditMode}>
         {isEditModeOn ? "Cancel" : "Edit"}
       </button>

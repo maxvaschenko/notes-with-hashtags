@@ -14,3 +14,12 @@ export const getToken = () =>
 
 export const getArticles = token =>
   axios.get(`${endpoint}/articles`, getAuthHeader(token));
+
+export const putArticle = (article, token) => {
+  const { id, ...other } = article;
+  return axios.put(
+    `${endpoint}/articles/${id}`,
+    { ...article },
+    getAuthHeader(token)
+  );
+};

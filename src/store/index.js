@@ -4,33 +4,33 @@
  * @version 1.09.34
  **/
 
-import {applyMiddleware, compose, createStore} from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import {createLogger} from "redux-logger";
+import { createLogger } from "redux-logger";
 import rootReducer from "../reducer/index";
 
 function configureStore(initialState) {
-    let createStoreWithMiddleware;
+  let createStoreWithMiddleware;
 
-    const middleware = process.env.__DEV__
-        ? applyMiddleware(thunk, createLogger())
-        : applyMiddleware(thunk);
+  const middleware = process.env.__DEV__
+    ? applyMiddleware(thunk, createLogger())
+    : applyMiddleware(thunk);
 
-    createStoreWithMiddleware = compose(
-        middleware,
-    );
+  createStoreWithMiddleware = compose(middleware);
 
-    const store = createStoreWithMiddleware(createStore)(rootReducer, initialState);
+  const store = createStoreWithMiddleware(createStore)(
+    rootReducer,
+    initialState
+  );
 
-    if (module.hot) {
-        module.hot
-            .accept('../reducer', () => {
-                const nextRootReducer = require('../reducer/index');
-                store.replaceReducer(nextRootReducer);
-            });
-    }
+  if (module.hot) {
+    module.hot.accept("../reducer", () => {
+      const nextRootReducer = require("../reducer/index");
+      store.replaceReducer(nextRootReducer);
+    });
+  }
 
-    return store;
+  return store;
 }
 
-export default configureStore
+export default configureStore;

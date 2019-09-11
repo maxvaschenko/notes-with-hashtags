@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { __Home__ } from "./styled";
 import { Spinner } from "../components/common/Spinner";
 import { ArticleItem } from "../components/TableComponents/ArticleItem";
+import { changeSingleArticle } from "../action/articles";
 
 const Home = props => {
-  const { articles } = props;
+  const { articles, changeSingleArticle } = props;
   return (
     <__Home__>
       <header>
@@ -15,7 +16,12 @@ const Home = props => {
         <button>Add new</button>
       </header>
       {articles && articles.length > 0 ? (
-        articles.map(item => <ArticleItem article={item} />)
+        articles.map(item => (
+          <ArticleItem
+            article={item}
+            changeSingleArticle={changeSingleArticle}
+          />
+        ))
       ) : (
         <Spinner />
       )}
@@ -29,5 +35,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  null
+  { changeSingleArticle }
 )(Home);
