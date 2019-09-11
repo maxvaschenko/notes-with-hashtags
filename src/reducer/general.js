@@ -1,7 +1,7 @@
 import { createReducer } from "../utils/index";
 import { GET_TOKEN } from "../type/general";
 
-const initialState = null;
+const initialState = {};
 
 const START = (state, payload) => {
   return {

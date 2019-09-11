@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getAppToken } from "./action/general";
-// import getAllArticles from "./action/articles.js";
+import { getAllArticles } from "./action/articles.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./container/Home";
 
@@ -12,7 +12,7 @@ const App = props => {
       getAppToken();
     }
     if (token) {
-      // getAllArticles(token)
+      getAllArticles(token);
     }
   }, [token]);
 
@@ -34,10 +34,10 @@ const App = props => {
 };
 
 const mapStateToProps = state => ({
-  token: state.token
+  token: state.general.token
 });
 
 export default connect(
   mapStateToProps,
-  { getAppToken }
+  { getAppToken, getAllArticles }
 )(App);

@@ -7,19 +7,11 @@ const Home = props => {
   return (
     <__Home__>
       {articles &&
-        articles.length &&
+        articles.length > 0 &&
         articles.map(item => {
-          const {
-            created_at,
-            description,
-            id,
-            name,
-            price,
-            status,
-            updated_at
-          } = item;
+          const { description, name, price, id } = item;
           return (
-            <div className={"articles-item"}>
+            <div className={"articles-item"} key={id}>
               <p>{description}</p>
               <p>{name}</p>
               <p>{price}</p>
