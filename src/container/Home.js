@@ -6,8 +6,7 @@ const Home = props => {
   const { articles } = props;
   return (
     <__Home__>
-      {articles &&
-        articles.length > 0 &&
+      {articles && articles.length > 0 ? (
         articles.map(item => {
           const { description, name, price, id } = item;
           return (
@@ -17,7 +16,10 @@ const Home = props => {
               <p>{price}</p>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="loader">Loading...</div>
+      )}
     </__Home__>
   );
 };
