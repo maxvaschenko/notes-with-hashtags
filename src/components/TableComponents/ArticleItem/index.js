@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const ArticleItem = props => {
   const { changeSingleArticle, deleteArticle } = props;
   const [article, changeArticle] = useState(props.article);
   const [isEditModeOn, switchEditMode] = useState(false);
   const { description, name, price, id } = article;
+
+  useEffect(() => {
+    changeArticle(props.article);
+  }, [props.article]);
+
   const changeEditMode = () => {
     if (isEditModeOn) {
       changeArticle(props.article);
