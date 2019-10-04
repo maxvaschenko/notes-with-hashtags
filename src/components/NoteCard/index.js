@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import save from "../../assets/icons/save.svg";
+import del from "../../assets/icons/del.svg";
+import onClickOutside from "react-onclickoutside";
 import { __NoteCardWrapper__ } from "./styled";
 
-export const NoteCard = props => {
+const NoteCard = props => {
   const {
     value,
     editNote,
@@ -23,16 +26,18 @@ export const NoteCard = props => {
   const removeCard = () => {
     removeNote({ value: editableValue, id });
   };
+  NoteCard.handleClickOutside = () => changeSelectedId(null)();
 
   const editMode = selectedNoteId === id;
   return (
     <__NoteCardWrapper__ onClick={!editMode ? changeSelectedId(id) : null}>
       {editMode ? (
         <>
-          <input type="text" value={editableValue} onChange={editValue} />{" "}
-          <button onClick={saveEditedValue}>Save</button>
-          <button onClick={removeCard}>Delete</button>
-          <button onClick={changeSelectedId(null)}>Exit edit mode</button>
+          <textarea value={editableValue} onChange={editValue} />
+          <div className="icons-container">
+            <img src={save} alt="" onClick={saveEditedValue} />
+            <img src={del} alt="" onClick={removeCard} />
+          </div>
         </>
       ) : (
         <p>{value}</p>
@@ -40,3 +45,9 @@ export const NoteCard = props => {
     </__NoteCardWrapper__>
   );
 };
+
+const clickOutsideConfig = {
+  handleClickOutside: () => NoteCard.handleClickOutside
+};
+
+export default onClickOutside(NoteCard, clickOutsideConfig);

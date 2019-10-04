@@ -1,6 +1,6 @@
 import React from "react";
 import { __NotesListWrapper__ } from "./styled";
-import { NoteCard } from "../NoteCard";
+import NoteCard from "../NoteCard";
 
 export const NotesList = props => {
   const {
@@ -14,7 +14,7 @@ export const NotesList = props => {
   return (
     <__NotesListWrapper__>
       <p>All notes</p>
-      {notes &&
+      {notes && notes.length > 0 ? (
         notes.map(item => (
           <NoteCard
             value={item.value}
@@ -25,7 +25,10 @@ export const NotesList = props => {
             selectedNoteId={selectedNoteId}
             changeSelectedNoteId={changeSelectedNoteId}
           />
-        ))}
+        ))
+      ) : (
+        <p>There are no notes here yet</p>
+      )}
     </__NotesListWrapper__>
   );
 };

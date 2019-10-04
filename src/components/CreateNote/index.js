@@ -13,11 +13,23 @@ export const CreateNote = props => {
     changeNoteValue("");
   };
 
+  const handleKeyPress = e => {
+    if (e.key === "Enter") {
+      addNote({ value: noteValue, id: nanoid() });
+      changeNoteValue("");
+    }
+  };
+
   return (
     <__CreateNoteWrapper__>
       <p>Create note</p>
       <div className="input-wrapper">
-        <input type="text" value={noteValue} onChange={changeInputValue} />
+        <input
+          type="text"
+          value={noteValue}
+          onChange={changeInputValue}
+          onKeyDown={handleKeyPress}
+        />
         <div className={"image-container"} onClick={addNoteToNoteList}>
           <img src={plus} alt="" />
         </div>

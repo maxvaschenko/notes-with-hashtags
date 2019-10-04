@@ -6,6 +6,7 @@ export const __CreateNoteWrapper__ = styled.div`
     display: flex;
     align-items: center;
     border: 1px solid #c2c7cc;
+    border-radius: 5px;
     .image-container {
       width: 50px;
       height: 50px;
