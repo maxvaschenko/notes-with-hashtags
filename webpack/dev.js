@@ -52,17 +52,7 @@ module.exports = {
       },
       {
         test: /.*\.scss$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader"
-          // {
-          //     loader: 'postcss-loader',
-          //     options: {
-          //         plugins: () => [require('autoprefixer')]
-          //     }
-          // }
-        ]
+        use: ["style-loader", "css-loader", "sass-loader"]
       },
 
       {
@@ -86,7 +76,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: '"development"',

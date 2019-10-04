@@ -1,8 +1,7 @@
 import "isomorphic-fetch";
-import "@babel/polyfill";
-import { injectGlobal } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
-injectGlobal`
+export const GlobalStyle = createGlobalStyle`
     ::selection {
         background: #e2e2e2;
         color: #717171;
