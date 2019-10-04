@@ -1,10 +1,5 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {__Home__} from "./styled";
-
-@connect(state => state,{
-
-})
 
 class Home extends Component {
     render() {
