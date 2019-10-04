@@ -9,7 +9,9 @@ const Home = props => {
 
   useEffect(() => {
     const persistedNotes = window.localStorage.getItem("notes");
-    changeNotesList(JSON.parse(persistedNotes));
+    if (persistedNotes) {
+      changeNotesList(JSON.parse(persistedNotes));
+    }
   }, []);
   useEffect(() => {
     window.localStorage.setItem("notes", JSON.stringify(notesList));
