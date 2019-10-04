@@ -1,8 +1,6 @@
 import "isomorphic-fetch";
 import "@babel/polyfill";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
-import {injectGlobal} from "styled-components";
+import { injectGlobal } from "styled-components";
 
 injectGlobal`
     ::selection {
