@@ -5,6 +5,7 @@ import { NotesList } from "../components/NotesList";
 
 const Home = props => {
   const [notesList, changeNotesList] = useState([]);
+  const [selectedNoteId, changeSelectedNoteId] = useState(null);
 
   useEffect(() => {
     const persistedNotes = window.localStorage.getItem("notes");
@@ -16,10 +17,33 @@ const Home = props => {
 
   const addNote = note => changeNotesList([note, ...notesList]);
 
+  const editNote = note => {
+    const noteIndex = notesList.findIndex(item => item.id === note.id);
+    changeNotesList([
+      ...notesList.slice(0, noteIndex),
+      note,
+      ...notesList.slice(noteIndex + 1)
+    ]);
+  };
+
+  const removeNote = note => {
+    const noteIndex = notesList.findIndex(item => item.id === note.id);
+    changeNotesList([
+      ...notesList.slice(0, noteIndex),
+      ...notesList.slice(noteIndex + 1)
+    ]);
+  };
+
   return (
     <__Home__>
       <CreateNote addNote={addNote} />
-      <NotesList notes={notesList} />
+      <NotesList
+        notes={notesList}
+        editNote={editNote}
+        removeNote={removeNote}
+        selectedNoteId={selectedNoteId}
+        changeSelectedNoteId={changeSelectedNoteId}
+      />
     </__Home__>
   );
 };
