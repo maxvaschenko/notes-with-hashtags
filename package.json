@@ -21,6 +21,7 @@
     "font-awesome": "^4.7.0",
     "ip": "^1.1.5",
     "isomorphic-fetch": "^2.2.1",
+    "nanoid": "^2.1.2",
     "postcss-loader": "^2.0.9",
     "react": "^16.9.0",
     "react-dom": "^16.1.1",
