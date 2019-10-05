@@ -20,13 +20,16 @@ export const CreateNote = props => {
   );
 
   const onChange = editorState => {
-    console.log(editorState.getCurrentContent().getPlainText());
     changeEditorState(editorState);
   };
 
   const addNoteToNoteList = () => {
-    addNote({ value: editorState, id: nanoid() });
-    //changeNoteValue("");
+    const value = editorState.getCurrentContent().getPlainText();
+    addNote({
+      value,
+      id: nanoid()
+    });
+    changeEditorState(createEditorStateWithText(""));
   };
 
   const focus = () => {

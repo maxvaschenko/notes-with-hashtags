@@ -1,16 +1,9 @@
 import React from "react";
 import { __NotesListWrapper__ } from "./styled";
-import NoteCard from "../NoteCard";
+import { NoteCard } from "../NoteCard";
 
 export const NotesList = props => {
-  const {
-    notes,
-    editNote,
-    removeNote,
-    selectedNoteId,
-    changeSelectedNoteId
-  } = props;
-  console.log(notes);
+  const { notes, editNote, removeNote } = props;
   return (
     <__NotesListWrapper__>
       <p>All notes</p>
@@ -22,8 +15,6 @@ export const NotesList = props => {
             editNote={editNote}
             removeNote={removeNote}
             id={item.id}
-            selectedNoteId={selectedNoteId}
-            changeSelectedNoteId={changeSelectedNoteId}
           />
         ))
       ) : (

@@ -1,53 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
+import createHashtagPlugin from "draft-js-hashtag-plugin";
 import save from "../../assets/icons/save.svg";
 import del from "../../assets/icons/del.svg";
-import onClickOutside from "react-onclickoutside";
+import done from "../../assets/icons/done.svg";
 import { __NoteCardWrapper__ } from "./styled";
+const hashtagPlugin = createHashtagPlugin({
+  theme: { hashtag: "hashtag" }
+});
+const plugins = [hashtagPlugin];
 
-const NoteCard = props => {
-  const {
-    value,
-    editNote,
-    id,
-    removeNote,
-    selectedNoteId,
-    changeSelectedNoteId
-  } = props;
-  const [editableValue, changeEditableValue] = useState(value);
+export const NoteCard = props => {
+  const { id, value, removeNote, editNote } = props;
+  const editorRef = useRef(null);
+  const [editorState, changeEditorState] = useState(
+    createEditorStateWithText(value)
+  );
+  const [showDoneIcon, changeShowDoneIcon] = useState(false);
 
-  const changeSelectedId = id => () => changeSelectedNoteId(id);
-  const editValue = e => changeEditableValue(e.target.value);
-  const saveEditedValue = () => {
-    if (value !== editableValue) {
-      editNote({ value: editableValue, id });
-    }
-    changeSelectedId(null)();
+  const onChange = editorState => {
+    changeEditorState(editorState);
   };
+
   const removeCard = () => {
-    removeNote({ value: editableValue, id });
+    const value = editorState.getCurrentContent().getPlainText();
+    removeNote({ value, id });
   };
-  NoteCard.handleClickOutside = () => changeSelectedId(null)();
 
-  const editMode = selectedNoteId === id;
+  const saveEditedValue = () => {
+    const value = editorState.getCurrentContent().getPlainText();
+    editNote({ value, id });
+    changeShowDoneIcon(true);
+    setTimeout(() => changeShowDoneIcon(false), 1500);
+  };
+
+  const focus = () => {
+    editorRef.current.focus();
+  };
   return (
-    <__NoteCardWrapper__ onClick={!editMode ? changeSelectedId(id) : null}>
-      {editMode ? (
-        <>
-          <textarea value={editableValue} onChange={editValue} />
-          <div className="icons-container">
-            <img src={save} alt="" onClick={saveEditedValue} />
-            <img src={del} alt="" onClick={removeCard} />
-          </div>
-        </>
-      ) : (
-        <p>{value}</p>
-      )}
+    <__NoteCardWrapper__>
+      <div className={"editor"} onClick={focus}>
+        <Editor
+          editorState={editorState}
+          onChange={onChange}
+          plugins={plugins}
+          ref={editorRef}
+        />
+        <div className="icons-container">
+          <img src={save} alt="" onClick={saveEditedValue} />
+          <img src={del} alt="" onClick={removeCard} />
+        </div>
+      </div>
+      {showDoneIcon && <img className={"doneIcon"} src={done} alt="" />}
     </__NoteCardWrapper__>
   );
 };
-
-const clickOutsideConfig = {
-  handleClickOutside: () => NoteCard.handleClickOutside
-};
-
-export default onClickOutside(NoteCard, clickOutsideConfig);

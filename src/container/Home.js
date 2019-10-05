@@ -10,7 +10,6 @@ const Home = props => {
     { value: "aa" },
     { value: "aac" }
   ]);
-  const [selectedNoteId, changeSelectedNoteId] = useState(null);
 
   useEffect(() => {
     const persistedNotes = window.localStorage.getItem("notes");
@@ -40,7 +39,6 @@ const Home = props => {
       ...notesList.slice(noteIndex + 1)
     ]);
   };
-
   return (
     <__Home__>
       <CreateNote
@@ -60,8 +58,6 @@ const Home = props => {
         changeHashTagsList={changeHashTagsList}
         editNote={editNote}
         removeNote={removeNote}
-        selectedNoteId={selectedNoteId}
-        changeSelectedNoteId={changeSelectedNoteId}
       />
     </__Home__>
   );
