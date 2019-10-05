@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { __Home__ } from "./styled";
-import { CreateNote } from "../components/CreateNote";
+import { CreateNote } from "../components/CreateNote/index";
 import { NotesList } from "../components/NotesList";
 
 const Home = props => {
   const [notesList, changeNotesList] = useState([]);
+  const [hashTagsList, changeHashTagsList] = useState([
+    { value: "a" },
+    { value: "aa" },
+    { value: "aac" }
+  ]);
   const [selectedNoteId, changeSelectedNoteId] = useState(null);
 
   useEffect(() => {
@@ -38,9 +43,21 @@ const Home = props => {
 
   return (
     <__Home__>
-      <CreateNote addNote={addNote} />
+      <CreateNote
+        addNote={addNote}
+        hashTagsList={hashTagsList}
+        changeHashTagsList={changeHashTagsList}
+      />
+      <div>
+        Hastags:
+        {hashTagsList.map(item => (
+          <div>{item.value}</div>
+        ))}
+      </div>
       <NotesList
         notes={notesList}
+        hashTagsList={hashTagsList}
+        changeHashTagsList={changeHashTagsList}
         editNote={editNote}
         removeNote={removeNote}
         selectedNoteId={selectedNoteId}
