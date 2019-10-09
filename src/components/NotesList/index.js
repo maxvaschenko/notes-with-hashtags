@@ -3,7 +3,13 @@ import { __NotesListWrapper__ } from "./styled";
 import { NoteCard } from "../NoteCard";
 
 export const NotesList = props => {
-  const { notes, editNote, removeNote } = props;
+  const {
+    notes,
+    editNote,
+    removeNote,
+    hashTagsList,
+    changeHashTagsList
+  } = props;
   return (
     <__NotesListWrapper__>
       <p>All notes</p>
@@ -15,6 +21,8 @@ export const NotesList = props => {
             editNote={editNote}
             removeNote={removeNote}
             id={item.id}
+            hashTagsList={hashTagsList}
+            changeHashTagsList={changeHashTagsList}
           />
         ))
       ) : (

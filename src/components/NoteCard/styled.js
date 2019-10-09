@@ -14,7 +14,7 @@ export const __NoteCardWrapper__ = styled.div`
   }
   .doneIcon {
     position: absolute;
-    top: 20px;
+    top: 7px;
     right: 10px;
   }
   .editor {
