@@ -9,6 +9,7 @@ const plugins = [hashtagPlugin];
 import nanoid from "nanoid";
 import plus from "../../assets/icons/plus.png";
 import { __CreateNoteWrapper__ } from "./styled";
+import { mergeDedupe } from "../../utils";
 
 const text = `Enter new note pls using #Hashtags`;
 
@@ -25,7 +26,11 @@ export const CreateNote = props => {
     const hashTags = value.match(
       /(^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,30})(\b|\r)/g
     );
-    if (value.slice(-1) === " " && hashTags.length > newNoteHashTags.length) {
+    if (
+      value.slice(-1) === " " &&
+      hashTags &&
+      hashTags.length > newNoteHashTags.length
+    ) {
       changeNewNoteHashTags([...hashTags]);
     }
     changeEditorState(editorState);
@@ -37,6 +42,8 @@ export const CreateNote = props => {
       value,
       id: nanoid()
     });
+    changeHashTagsList(mergeDedupe([...newNoteHashTags, ...hashTagsList]));
+    changeNewNoteHashTags([]);
     changeEditorState(createEditorStateWithText(""));
   };
 

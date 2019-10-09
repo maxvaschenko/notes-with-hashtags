@@ -17,7 +17,6 @@ export function devTools(env) {
   }
 }
 
-export const getLastWord = str => {
-  const allWords = str.split(" ");
-  return allWords[allWords.length - 1];
+export const mergeDedupe = arr => {
+  return [...new Set([].concat(...arr))];
 };
