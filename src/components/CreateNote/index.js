@@ -23,14 +23,12 @@ export const CreateNote = props => {
 
   const onChange = editorState => {
     const value = editorState.getCurrentContent().getPlainText();
-    const hashTags = value.match(
-      /(^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,30})(\b|\r)/g
-    );
-    if (
-      value.slice(-1) === " " &&
-      hashTags &&
-      hashTags.length > newNoteHashTags.length
-    ) {
+    const hashTags =
+      value.match(/(^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,30})(\b|\r)/g) || [];
+    if (value.slice(-1) === " " && hashTags.length > newNoteHashTags.length) {
+      changeNewNoteHashTags([...hashTags]);
+    }
+    if (hashTags.length < newNoteHashTags.length) {
       changeNewNoteHashTags([...hashTags]);
     }
     changeEditorState(editorState);
