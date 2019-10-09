@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
 import createHashtagPlugin from "draft-js-hashtag-plugin";
 import save from "../../assets/icons/save.svg";
@@ -16,8 +16,13 @@ export const NoteCard = props => {
   const [editorState, changeEditorState] = useState(
     createEditorStateWithText(value)
   );
+  const [noteHashTags, changeNoteHashTags] = useState([]);
   const [showDoneIcon, changeShowDoneIcon] = useState(false);
-
+  useEffect(() => {
+    const hashTags =
+      value.match(/(^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,30})(\b|\r)/g) || [];
+    changeNoteHashTags(hashTags);
+  }, [value]);
   const onChange = editorState => {
     changeEditorState(editorState);
   };
@@ -52,6 +57,11 @@ export const NoteCard = props => {
         </div>
       </div>
       {showDoneIcon && <img className={"doneIcon"} src={done} alt="" />}
+      <div className="hashTag-container">
+        {noteHashTags.map(item => (
+          <p className={"hashtag-item"}>{item}</p>
+        ))}
+      </div>
     </__NoteCardWrapper__>
   );
 };
