@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
 import createHashtagPlugin from "draft-js-hashtag-plugin";
 const hashtagPlugin = createHashtagPlugin({
@@ -9,7 +9,11 @@ const plugins = [hashtagPlugin];
 import nanoid from "nanoid";
 import plus from "../../assets/icons/plus.png";
 import { __CreateNoteWrapper__ } from "./styled";
-import { getHashTagsFromEditorState, mergeDedupe } from "../../utils";
+import {
+  getHashTagsFromEditorState,
+  getNotesForUpdate,
+  mergeDedupe
+} from "../../utils";
 
 const text = `Enter new note pls using #Hashtags`;
 
@@ -20,6 +24,11 @@ export const CreateNote = props => {
     createEditorStateWithText(text)
   );
   const [newNoteHashTags, changeNewNoteHashTags] = useState([]);
+
+  useEffect(() => {
+    const hashTags = getHashTagsFromEditorState(editorState);
+    changeNewNoteHashTags(hashTags);
+  }, []);
 
   const onChange = editorState => {
     const value = editorState.getCurrentContent().getPlainText();
@@ -39,7 +48,7 @@ export const CreateNote = props => {
       value,
       id: nanoid()
     });
-    changeHashTagsList(mergeDedupe([...newNoteHashTags, ...hashTagsList]));
+    changeHashTagsList([...getNotesForUpdate(hashTagsList, newNoteHashTags)]);
     changeNewNoteHashTags([]);
     changeEditorState(createEditorStateWithText(""));
   };

@@ -41,6 +41,7 @@ const Home = props => {
       ...notesList.slice(noteIndex + 1)
     ]);
   };
+  console.log(hashTagsList);
   return (
     <__Home__>
       <div className="wrapper">
@@ -48,7 +49,7 @@ const Home = props => {
           <h2>Hashtags:</h2>
           {hashTagsList.map(item => (
             <div className={"sidebar-hashTag"} key={nanoid()}>
-              {item}
+              {item.value}
             </div>
           ))}
         </aside>

@@ -5,7 +5,11 @@ import save from "../../assets/icons/save.svg";
 import del from "../../assets/icons/del.svg";
 import done from "../../assets/icons/done.svg";
 import { __NoteCardWrapper__ } from "./styled";
-import { getHashTagsFromEditorState, mergeDedupe } from "../../utils";
+import {
+  getHashTagsFromEditorState,
+  getNotesForUpdate,
+  mergeDedupe
+} from "../../utils";
 import nanoid from "nanoid";
 const hashtagPlugin = createHashtagPlugin({
   theme: { hashtag: "hashtag" }
@@ -59,7 +63,7 @@ export const NoteCard = props => {
     const value = editorState.getCurrentContent().getPlainText();
     editNote({ value, id });
     changeShowDoneIcon(true);
-    changeHashTagsList(mergeDedupe([...noteHashTags, ...hashTagsList]));
+    changeHashTagsList([...getNotesForUpdate(noteHashTags, hashTagsList, "-")]);
     setTimeout(() => changeShowDoneIcon(false), 1500);
   };
 

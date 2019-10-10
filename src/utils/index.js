@@ -17,8 +17,23 @@ export function devTools(env) {
   }
 }
 
-export const mergeDedupe = arr => {
-  return [...new Set([].concat(...arr))];
+export const getNotesForUpdate = (
+  hashTagsList,
+  newNoteHashTags,
+  action = "+"
+) => {
+  const newNotes = newNoteHashTags.map(newNote => {
+    const existedTag = hashTagsList.find(global => global.value === newNote);
+    return Object.assign(
+      {},
+      existedTag ? { value: existedTag.value } : { value: newNote },
+      existedTag ? { count: existedTag.count + 1 } : { count: 1 }
+    );
+  });
+  const oldWithoutFound = hashTagsList.filter(oldTag =>
+    newNotes.every(newTag => oldTag.value !== newTag.value)
+  );
+  return [...newNotes, ...oldWithoutFound];
 };
 
 export const getHashTagsFromEditorState = editorState => {
